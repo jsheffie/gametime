@@ -162,61 +162,71 @@ def make_my_move(current_move):
 
 
 #-------------------------------------------
-# make the first request
+play_my_game_count=1000
+I_WIN=False
 
-# I nee over 1k moves ( there are 165 moves in my_unique_sequence)
-my_game_moves = my_unique_sequence * 10
-opponent_actual_moves = []
+while play_my_game_count > 0 and I_WIN == False:
+    play_my_game_count = play_my_game_count + 1
 
-requests.packages.urllib3.disable_warnings()
-opponent= "pato-bajo-jr"
-initial_data = {
-  # Potential opponent's
-  # "pato-bajo-jr", "princesa-comico", "el-rey-muy-dante", "senor-amistoso"
-  "opponent": opponent,
-  "player_name": "Jeff Sheffield",
-  "email": "jeff.sheffield@gmail.com"
-}
-headers = {'content-type': 'application/json'}
+    # make the first request
+    # I need over 1k moves ( there are 165 moves in my_unique_sequence)
+    my_game_moves = my_unique_sequence * 10
+    opponent_actual_moves = []
 
-moves_remaining=1111 # magic number over 1000
+    requests.packages.urllib3.disable_warnings()
 
-data=initial_data
-current_move=0
+    #opponent = "pato-bajo-jr"
+    opponent = "princesa-comico"
+    initial_data = {
+      # Potential opponent's
+      # "pato-bajo-jr", "princesa-comico", "el-rey-muy-dante", "senor-amistoso"
+      "opponent": opponent,
+      "player_name": "Jeff Sheffield",
+      "email": "jeff.sheffield@gmail.com"
+    }
+    headers = {'content-type': 'application/json'}
 
-while moves_remaining > 0:
-    print "Moves Remaining: %d" % ( moves_remaining )
-    r = requests.post(server_url, data =json.dumps(data), headers=headers) 
-    #time.sleep(1)
-    print "Server Status Code: %d" % ( r.status_code ) 
+    moves_remaining=1111 # magic number over 1000
 
-    if moves_remaining < 2:
-        print r.content
+    data=initial_data
+    current_move=0
 
-    data = json.loads(r.content)
-    moves_remaining=data['gamestate']['moves_remaining']
-    data["move"]=make_my_move(my_game_moves[current_move])
+    while moves_remaining > 0:
+        print "Moves Remaining: %d" % ( moves_remaining )
+        r = requests.post(server_url, data =json.dumps(data), headers=headers) 
+        #time.sleep(1)
+        print "Server Status Code: %d" % ( r.status_code ) 
 
-    #import pdb; pdb.set_trace()
-    try:
-        opponent_move = data['gamestate']['opponent_move']
-        opponent_actual_moves.append(opponent_move)
-        if current_move == 6: 
-            # are we playing my game?
-            if not opponent_actual_moves == playing_my_game:
-                print opponent_actual_moves
-                print playing_my_game
-                print "We are not playing my game, lets play again sometime"
-                sys.exit(1)
-            
+        if moves_remaining < 2:
+            print r.content
 
-        if 'score' in data['gamestate'] and 'total_score' in data['gamestate']:
-            print "Score: %d" % ( data['gamestate']['score']) 
-            print "Total Score: %d" % ( data['gamestate']['total_score']) 
-    except KeyError:
-        pass
-    except Exception, e:
-        raise
+        data = json.loads(r.content)
+        moves_remaining=data['gamestate']['moves_remaining']
+        data["move"]=make_my_move(my_game_moves[current_move])
 
-    current_move=current_move + 1
+        #import pdb; pdb.set_trace()
+        try:
+            opponent_move = data['gamestate']['opponent_move']
+            opponent_actual_moves.append(opponent_move)
+            if current_move == 6: 
+                # are we playing my game?
+                if not opponent_actual_moves == playing_my_game:
+                    print opponent_actual_moves
+                    print playing_my_game
+                    print "We are not playing my game, lets play again sometime"
+                    #sys.exit(1)
+                    break
+
+            if 'score' in data['gamestate'] and 'total_score' in data['gamestate']:
+                print "Score: %d" % ( data['gamestate']['score']) 
+                print "Total Score: %d" % ( data['gamestate']['total_score'])
+                if data['gamestate']['total_score'] == 1000:
+                    I_WIN=True
+
+        except KeyError:
+            pass
+        except Exception, e:
+            raise
+
+        current_move=current_move + 1
 

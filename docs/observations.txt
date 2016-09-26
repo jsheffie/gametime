@@ -6,8 +6,11 @@ Lets wrestle:
 
 Firts attempt: 
 First I jumped in with both feet... I used a chrome plugin postman to generate API request's
-and observe behavier.
-Once I thought I knew what was going on, 
+and observe behavier. Once I thought I knew what was going on, I jumped in and started writing code
+that was reactionary to what moves came down the pipe, this was not a good solution. After awhile
+and viewing 'analyzing' a bunch of data I realized that the key was to get the api to play my
+game, this would give me a 100% chance of getting every question correct every time. The trick here
+is to exit-early if we are not playing my game.
 
 Investigation Questions: The following questions are the questions I asked myself as I began the quest to not get my ass kicked.
 
@@ -105,3 +108,6 @@ play #5 repeat --> ( header ) "A","B","F"
 
 play #6 repeat --> ( header ) "A","B","E"
 "A","B","E","D","B","E","G","H","E","B","K","E","B","C","H","E","F","E","H","B","E","K","A","E","B","D","E","F","G","H","I","J","E","A","B","E","D","E","E","B","H","E","J","K","H","B","C","E","E","B","E","H","I","E","B","A","E","C","D","H","F","G","E","I","B","E","A","B","E","B","E","E","G","H","H","J","K","E","B","B","E","E","F","E","B","I","E","K","A","H","C","D","E","F","B","E","I","J","E","B","B","E","D","E","H","G","H","E","J","B","E","B","C","E","B","F","E","H","I","H","K","A","E","C","B","E","F","G","E","B","J","E","A","B","H","D","E","E","G","B","E","J","K","E","B","C","E","E","F","H","H","I","E","K","B","E","C","D","E","B","G","E","I","J","H"
+
+play #1 on tournament server 
+"A","B","B","D","A","B","G","H","B","A","K","B","B","C","D","E","F","B","H","A","B","K","A","B","A","D","B","F","G","D","I","J","B","A","A","B","D","E","B","A","H","B","J","K","D","B","C","B","E","A","B","H","I","B","A","A","B","C","D","D","F","G","B","I","A","B","A","B","B","A","E","B","G","H","D","J","K","B","B","A","B","E","F","B","A","I","B","K","A","D","C","D","B","F","A","B","I","J","B","A","B","B","D","E","D","G","H","B","J","A","B","B","C","B","A","F","B","H","I","D","K","A","B","C","A","B","F","G","B","A","J","B","A","B","D","D","E","B","G","A","B","J","K","B","A","C","B","E","F","D","H","I","B","K","A","B","C","D","B","A","G","B","I","J","D"
