@@ -140,7 +140,7 @@ def make_my_move(current_move, last_run_moves, opponent_move=False):
 # make the first request
 requests.packages.urllib3.disable_warnings()
 
-opponent= "pato-bajo-jr"
+opponent= "princesa-comico"
 initial_data = {
   # Potential opponent's
   # "pato-bajo-jr", "princesa-comico", "el-rey-muy-dante", "senor-amistoso"
@@ -158,7 +158,11 @@ while moves_remaining > 0:
     print "Moves Remaining: %d" % ( moves_remaining )
     r = requests.post(server_url, data =json.dumps(data), headers=headers) 
     print "Server Status Code: %d" % ( r.status_code ) 
-    
+    if r.status_code != 200:
+      print "S...L...E...P...I...N...G"
+      time.sleep(60)
+      continue
+
     if moves_remaining < 2:
         print r.content
 

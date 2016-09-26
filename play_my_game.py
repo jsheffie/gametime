@@ -15,7 +15,12 @@ moves=["A", "B", "C",
        "G", "H", "I",
        "J", "K" ]
 
-if game_type == "championship":
+# Potential opponent's
+# "pato-bajo-jr", "princesa-comico", "el-rey-muy-dante", "senor-amistoso"
+#opponent = "pato-bajo-jr"
+opponent = "princesa-comico"
+
+if game_type == "championship" and opponent == "pato-bajo-jr":
     # 165 char repeating sequence
 
     my_unique_sequence=[ "A","B","B","D","A","B","G","H","B","A","K","B","B","C","D","E","F","B","H","A","B","K","A","B","A",
@@ -27,8 +32,20 @@ if game_type == "championship":
                          "H","I","B","K","A","B","C","D","B","A","G","B","I","J","D"]
 
     playing_my_game=["A","B","B","D","A","B"]
+
+elif game_type == "championship" and opponent == "princesa-comico":
+    # really just CBFK
+    my_unique_sequence=[ "C","B","F","K","C","B","F","K","C","B","F","K","C","B","F","K","C","B","F","K","C","B","F","K","C",
+                         "B","F","K","C","B","F","K","C","B","F","K","C","B","F","K","C","B","F","K","C","B","F","K","C","B",
+                         "F","K","C","B","F","K","C","B","F","K","C","B","F","K","C","B","F","K","C","B","F","K","C","B","F",
+                         "K","C","B","F","K","C","B","F","K","C","B","F","K","C","B","F","K","C","B","F","K","C","B","F","K",
+                         "C","B","F","K","C","B","F","K","C","B","F","K","C","B","F","K","C","B","F","K","C","B","F","K","C",
+                         "B","F","K","C","B","F","K","C","B","F","K","C","B","F","K","C","B","F","K","C","B","F","K","C","B",
+                         "F","K","C","B","F","K","C","B","F","K","C","B","F","K","C"]
+
+    playing_my_game=["C","B","F","K","C","B"]
+
 else:
-    # 165 char repeating sequence
     my_unique_sequence=[ "A","B","F","D","G","F","G","H","F","G","K","F","B","C","I","E","F","F","H","G","F","K","A","F","G",
                          "D","F","F","G","I","I","J","F","A","G","F","D","E","F","G","H","F","J","K","I","B","C","F","E","G",
                          "F","H","I","F","G","A","F","C","D","I","F","G","F","I","G","F","A","B","F","G","E","F","G","H","I",
@@ -196,6 +213,11 @@ while play_my_game_count > 0 and I_WIN == False:
         r = requests.post(server_url, data =json.dumps(data), headers=headers) 
         #time.sleep(1)
         print "Server Status Code: %d" % ( r.status_code ) 
+
+        if r.status_code != 200:
+          print "S...L...E...P...I...N...G"
+          time.sleep(60)
+          continue
 
         if moves_remaining < 2:
             print r.content
