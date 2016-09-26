@@ -5,8 +5,8 @@ import requests.packages.urllib3
 import json
 import time
 
-game_type="training"
-#game_type="championship"
+#game_type="training"
+game_type="championship"
 server_url="https://umbelmania.umbel.com/%s/" % game_type
 
 moves=["A", "B", "C", 

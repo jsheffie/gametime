@@ -15,15 +15,28 @@ moves=["A", "B", "C",
        "G", "H", "I",
        "J", "K" ]
 
-# 165 char repeating sequence
-my_unique_sequence=[ "A","B","F","D","G","F","G","H","F","G","K","F","B","C","I","E","F","F","H","G","F","K","A","F","G",
-                     "D","F","F","G","I","I","J","F","A","G","F","D","E","F","G","H","F","J","K","I","B","C","F","E","G",
-                     "F","H","I","F","G","A","F","C","D","I","F","G","F","I","G","F","A","B","F","G","E","F","G","H","I",
-                     "J","K","F","B","G","F","E","F","F","G","I","F","K","A","I","C","D","F","F","G","F","I","J","F","G",
-                     "B","F","D","E","I","G","H","F","J","G","F","B","C","F","G","F","F","H","I","I","K","A","F","C","G",
-                     "F","F","G","F","G","J","F","A","B","I","D","E","F","G","G","F","J","K","F","G","C","F","E","F","I",
-                     "H","I","F","K","G","F","C","D","F","G","G","F","I","J","I"]
-playing_my_game=["A","B","F"]
+if game_type == "championship":
+    # 165 char repeating sequence
+
+    my_unique_sequence=[ "A","B","B","D","A","B","G","H","B","A","K","B","B","C","D","E","F","B","H","A","B","K","A","B","A",
+                         "D","B","F","G","D","I","J","B","A","A","B","D","E","B","A","H","B","J","K","D","B","C","B","E","A",
+                         "B","H","I","B","A","A","B","C","D","D","F","G","B","I","A","B","A","B","B","A","E","B","G","H","D",
+                         "J","K","B","B","A","B","E","F","B","A","I","B","K","A","D","C","D","B","F","A","B","I","J","B","A",
+                         "B","B","D","E","D","G","H","B","J","A","B","B","C","B","A","F","B","H","I","D","K","A","B","C","A",
+                         "B","F","G","B","A","J","B","A","B","D","D","E","B","G","A","B","J","K","B","A","C","B","E","F","D",
+                         "H","I","B","K","A","B","C","D","B","A","G","B","I","J","D"]
+
+    playing_my_game=["A","B","B","D","A","B"]
+else:
+    # 165 char repeating sequence
+    my_unique_sequence=[ "A","B","F","D","G","F","G","H","F","G","K","F","B","C","I","E","F","F","H","G","F","K","A","F","G",
+                         "D","F","F","G","I","I","J","F","A","G","F","D","E","F","G","H","F","J","K","I","B","C","F","E","G",
+                         "F","H","I","F","G","A","F","C","D","I","F","G","F","I","G","F","A","B","F","G","E","F","G","H","I",
+                         "J","K","F","B","G","F","E","F","F","G","I","F","K","A","I","C","D","F","F","G","F","I","J","F","G",
+                         "B","F","D","E","I","G","H","F","J","G","F","B","C","F","G","F","F","H","I","I","K","A","F","C","G",
+                         "F","F","G","F","G","J","F","A","B","I","D","E","F","G","G","F","J","K","F","G","C","F","E","F","I",
+                         "H","I","F","K","G","F","C","D","F","G","G","F","I","J","I"]
+    playing_my_game=["A","B","F","D","G","F"]
 
 
 cheat_sheet = {
@@ -188,7 +201,7 @@ while moves_remaining > 0:
     try:
         opponent_move = data['gamestate']['opponent_move']
         opponent_actual_moves.append(opponent_move)
-        if current_move == 3: 
+        if current_move == 6: 
             # are we playing my game?
             if not opponent_actual_moves == playing_my_game:
                 print opponent_actual_moves
