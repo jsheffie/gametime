@@ -1,0 +1,107 @@
+Lets wrestle: 
+
+- There are 4 opponent's 
+- Thre are 11 possible moves ["A", "B", ..., "K" ]
+  each move has 5 moves that beat it, and 5 moves that it beats.
+
+Firts attempt: 
+First I jumped in with both feet... I used a chrome plugin postman to generate API request's
+and observe behavier.
+Once I thought I knew what was going on, 
+
+Investigation Questions: The following questions are the questions I asked myself as I began the quest to not get my ass kicked.
+
+1: How does the game play each move? Are there observable patterns?
+
+2: Does each character play the same way? ( using the same algroithem )
+  NO: the character reacts differently 
+
+3: Which character is easiest?
+    You can figure this out from the django app    
+
+4: Does eatch match unfold the same way? ( with a pridictalbe response )
+
+5: Can I use djr or django admin to 'rig the results'? ( bonus points )
+
+6: What is the web stack... n don't leave out any versions? ( nmap )
+
+7: Game type 'training' and 'championship'... do they play the same?
+
+API: high-level overview
+     - https://umbelmania.umbel.com/training/
+     - https://umbelmania.umbel.com/championship/
+     - https://umbelmania.umbel.com/oponents/
+
+
+1: How does the game play each move? Are there observable patterns?
+   For starter's... lets collect some data... alot of it ( ok, a fair amount of it )
+
+    .--------------------------------------------------------------------------------.
+   | Score   | Algrothym   | Opponent         | same on subsequent runs? | Datafile   |
+   |`--------+-------------+------------------+--------------------------+------------|
+   | -199    | Static: 'A' | pato-bajo-jr     |  NO                      | play1.txt  |
+   |   67    | Static: 'A' | pato-bajo-jr     |  NO                      | play2.txt  |
+   |  199    | Static: 'A' | pato-bajo-jr     |  NO                      | play3.txt  |
+   | -201    | Static: 'A' | pato-bajo-jr     |  NO                      | play4.txt  |
+   |   67    | Static: 'A' | pato-bajo-jr     |  NO                      | play5.txt  |
+   |  335    | Static: 'A' | pato-bajo-jr     |  NO                      | play6.txt  |
+   |         |             |                  |                          |
+   |         |             |                  |                          |
+   |         |             |                  |                          |
+   |         |             |                  |                          |
+   |         |             |                  |                          |
+
+"pato-bajo-jr", "princesa-comico", "el-rey-muy-dante", "senor-amistoso"
+
+  Run the sim several times, is the data the same.
+  Initial thoughts after a few run's. I suspect there is a pattern of canned responses, that will not matter what move I make, or player I use... ( but that complexity value... makes me wonder about "senor-amistoso"
+
+165 character repeating sequences.
+Opponent Response Order to Move A:
+play #1 repeating pattern: --> (header) "A","B","I","D","D"
+"A","B","I","D","D","I","G","H","I","D","K","I","B","C","H","E","F","I","H","D","I","K","A","I","D",
+"D","I","F","G","H","I","J","I","A","D","I","D","E","I","D","H","I","J","K","H","B","C","I","E","D",
+"I","H","I","I","D","A","I","C","D","H","F","G","I","I","D","I","A","B","I","D","E","I","G","H","H",
+"J","K","I","B","D","I","E","F","I","D","I","I","K","A","H","C","D","I","F","D","I","I","J","I","D",
+"B","I","D","E","H","G","H","I","J","D","I","B","C","I","D","F","I","H","I","H","K","A","I","C","D",
+"I","F","G","I","D","J","I","A","B","H","D","E","I","G","D","I","J","K","I","D","C","I","E","F","H",
+"H","I","I","K","D","I","C","D","I","D","G","I","I","J","H"
+
+play #2 repeating pattern:
+"A","B","C","D","G","C","G","H","C","G","K","C","B","C","J","E","F","C","H","G","C","K","A","C","G",
+"D","C","F","G","J","I","J","C","A","G","C","D","E","C","G","H","C","J","K","J","B","C","C","E","G",
+"C","H","I","C","G","A","C","C","D","J","F","G","C","I","G","C","A","B","C","G","E","C","G","H","J",
+"J","K","C","B","G","C","E","F","C","G","I","C","K","A","J","C","D","C","F","G","C","I","J","C","G",
+"B","C","D","E","J","G","H","C","J","G","C","B","C","C","G","F","C","H","I","J","K","A","C","C","G",
+"C","F","G","C","G","J","C","A","B","J","D","E","C","G","G","C","J","K","C","G","C","C","E","F","J",
+"H","I","C","K","G","C","C","D","C","G","G","C","I","J","J"
+
+play #3 repeating pattern:
+"A","B","B","D","J","B","G","H","B","J","K","B","B","C","F","E","F","B","H","J","B","K","A","B","J",
+"D","B","F","G","F","I","J","B","A","J","B","D","E","B","J","H","B","J","K","F","B","C","B","E","J",
+"B","H","I","B","J","A","B","C","D","F","F","G","B","I","J","B","A","B","B","J","E","B","G","H","F",
+"J","K","B","B","J","B","E","F","B","J","I","B","K","A","F","C","D","B","F","J","B","I","J","B","J",
+"B","B","D","E","F","G","H","B","J","J","B","B","C","B","J","F","B","H","I","F","K","A","B","C","J",
+"B","F","G","B","J","J","B","A","B","F","D","E","B","G","J","B","J","K","B","J","C","B","E","F","F",
+"H","I","B","K","J","B","C","D","B","J","G","B","I","J","F"
+
+play #4 repeating pattern: --> (header) "A","B","I","D","A"
+"A","B","I","D","A","I","G","H","I","A","K","I","B","C","F","E","F","I","H","A","I","K","A","I","A",
+"D","I","F","G","F","I","J","I","A","A","I","D","E","I","A","H","I","J","K","F","B","C","I","E","A",
+"I","H","I","I","A","A","I","C","D","F","F","G","I","I","A","I","A","B","I","A","E","I","G","H","F",
+"J","K","I","B","A","I","E","F","I","A","I","I","K","A","F","C","D","I","F","A","I","I","J","I","A",
+"B","I","D","E","F","G","H","I","J","A","I","B","C","I","A","F","I","H","I","F","K","A","I","C","A",
+"I","F","G","I","A","J","I","A","B","F","D","E","I","G","A","I","J","K","I","A","C","I","E","F","F",
+"H","I","I","K","A","I","C","D","I","A","G","I","I","J","F"
+
+play #5 repeat --> ( header ) "A","B","F"
+"A","B","F","D","G","F","G","H","F","G","K","F","B","C","I","E","F","F","H","G","F","K","A","F","G",
+"D","F","F","G","I","I","J","F","A","G","F","D","E","F","G","H","F","J","K","I","B","C","F","E","G",
+"F","H","I","F","G","A","F","C","D","I","F","G","F","I","G","F","A","B","F","G","E","F","G","H","I",
+"J","K","F","B","G","F","E","F","F","G","I","F","K","A","I","C","D","F","F","G","F","I","J","F","G",
+"B","F","D","E","I","G","H","F","J","G","F","B","C","F","G","F","F","H","I","I","K","A","F","C","G",
+"F","F","G","F","G","J","F","A","B","I","D","E","F","G","G","F","J","K","F","G","C","F","E","F","I",
+"H","I","F","K","G","F","C","D","F","G","G","F","I","J","I"
+
+play #6 repeat --> ( header ) "A","B","E"
+"A","B","E","D","B","E","G","H","E","B","K","E","B","C","H","E","F","E","H","B","E","K","A","E","B","D","E","F","G","H","I","J","E","A","B","E","D","E","E","B","H","E","J","K","H","B","C","E","E","B","E","H","I","E","B","A","E","C","D","H","F","G","E","I","B","E","A","B","E","B","E","E","G","H","H","J","K","E","B","B","E","E","F","E","B","I","E","K","A","H","C","D","E","F","B","E","I","J","E","B","B","E","D","E","H","G","H","E","J","B","E","B","C","E","B","F","E","H","I","H","K","A","E","C","B","E","F","G","E","B","J","E","A","B","H","D","E","E","G","B","E","J","K","E","B","C","E","E","F","H","H","I","E","K","B","E","C","D","E","B","G","E","I","J","H"
