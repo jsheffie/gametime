@@ -166,8 +166,8 @@ play_my_game_count=1000
 I_WIN=False
 
 while play_my_game_count > 0 and I_WIN == False:
-    play_my_game_count = play_my_game_count + 1
-
+    play_my_game_count = play_my_game_count - 1
+    print "P L A Y I N G   M Y   G A M E   ---> %d" % ( play_my_game_count )
     # make the first request
     # I need over 1k moves ( there are 165 moves in my_unique_sequence)
     my_game_moves = my_unique_sequence * 10
